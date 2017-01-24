@@ -8,7 +8,7 @@ class Water
   private
 
   def find_sections(levels)
-    SectionFinder.new(levels).process([], 0)
+    SectionFinder.new(levels).process([], 0, 0)
   end
 
   def find_area(section)
