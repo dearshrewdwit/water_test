@@ -1,25 +1,38 @@
 class Water
+  
   def find_water(towers)
     raise TypeError unless towers.kind_of?(Array)
+
+    max_left = highest_towers_left(towers)
+    max_right = highest_towers_right(towers)
+
     water_collected = 0
-    towers.each_with_index { |tower_height,index| 
-      barrier_height = max_fill_level(towers,index)
-      water_collected += (barrier_height - tower_height) if barrier_height > tower_height
-    }
+    towers.each_with_index do |height, index| 
+      barrier = [max_left[index],max_right[index]].min
+      water_collected += (barrier - height) if barrier > height
+    end
     water_collected
+
   end
 
-  def max_fill_level(towers,index)
-    left = highest_tower_to_left(towers,index)
-    right = highest_tower_to_right(towers,index)
-    [left,right].min
+  def highest_towers_left(towers)
+    current_max = 0
+    max_left = []
+    towers.each { |height|
+      max_left << current_max
+      current_max = height if height > current_max
+    }
+    max_left
   end
 
-  def highest_tower_to_right(towers,index)
-    towers.slice(index+1,towers.length).max.to_i
+  def highest_towers_right(towers)
+    current_max = 0
+    max_right = []
+    towers.reverse_each { |height|
+      max_right << current_max
+      current_max = height if height > current_max
+    }
+    max_right.reverse!
   end
 
-  def highest_tower_to_left(towers,index)
-    towers.slice(0,index).max.to_i
-  end
 end
