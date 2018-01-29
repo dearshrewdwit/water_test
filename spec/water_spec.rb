@@ -40,7 +40,7 @@ RSpec.describe Water do
       it { is_expected.to eq 14 }
     end
 
-    context 'Set no 5' do
+    context 'Set no 6' do
       let(:data_set) { [5, 3, 7, 2, 6, 4, 5, 9, 1, 1, 2] }
 
       it { is_expected.to eq 15 }
